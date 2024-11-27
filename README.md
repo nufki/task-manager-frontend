@@ -1,22 +1,34 @@
-# Json server
+# About
+This is the corresponding frontend of the simple task manager backend:
+https://github.com/nufki/task-manager-backend
+Feature:
+- Simple frontend that allows to manage simple that are being stored using AWS
+- Simple user login that allows to interact with a task manager API on the backend that is backed by AWS cognito using AWS amplify
+- Easy gitops with github-actions that will trigger a deployment of the application on your AWS account (S3) 
+
+# configuration
+Configure AWS cognito parameter in: 
+`amplifyconfiguration.json`
+```
+{
+  "aws_project_region": "YOUR-REGION",
+  "aws_cognito_region": "YOUR-REGION",
+  "aws_user_pools_id": "YOUR-POOL_ID",
+  "aws_user_pools_web_client_id": "YOUR-POOL-CLIENT-ID"
+}
+```
 
 ## install
+`ng build`
 
-```
-npm install -g json-server
-```
+## run development server
+`ng serve`
 
-## run
-
-```
-json-server --watch db.json --port 3000
-```
-
+## useful docs on amplify
 amplify docu: https://docs.amplify.aws/angular/build-a-backend/auth/connect-your-frontend/manage-user-sessions/
 
 
-
-# AngularNgrxExample
+# Angular specific stuff that ships with the CLI
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.0.
 
