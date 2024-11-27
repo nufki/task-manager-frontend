@@ -1,0 +1,49 @@
+<!-- Add Task Modal -->
+<div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addTaskModalLabel">Add New Task</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="itemName" class="form-label">Name:</label>
+            <input id="itemName" type="text" class="form-control" [(ngModel)]="newTaskName" name="itemName"
+                   placeholder="Enter task name"/>
+          </div>
+          <div class="mb-3">
+            <label for="itemDescription" class="form-label">Description:</label>
+            <textarea id="itemDescription" class="form-control" rows="3" [(ngModel)]="newTaskDescription"
+                      name="itemDescription" placeholder="Enter task description"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="taskStatus" class="form-label">Status:</label>
+            <select id="taskStatus" class="form-select" [(ngModel)]="newTaskStatus" name="taskStatus">
+              <option value="not-started">Not Started</option>
+              <option value="in-progress">In Progress</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="taskPriority" class="form-label">Priority:</label>
+            <select id="taskPriority" class="form-select" [(ngModel)]="newTaskPriority" name="taskPriority">
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="dueDate" class="form-label">Due Date:</label>
+            <input type="date" id="dueDate" class="form-control" [(ngModel)]="newTaskDueDate" name="dueDate"/>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="onAddTask()" data-bs-dismiss="modal">Add Task</button>
+      </div>
+    </div>
+  </div>
+</div>

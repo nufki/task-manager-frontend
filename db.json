@@ -1,0 +1,100 @@
+{
+  "tasks": [
+    {
+      "id": "a1b2",
+      "name": "Implement User Authentication",
+      "description": "Set up user authentication using JWT, including login, registration, and session handling.",
+      "status": "completed",
+      "priority": "medium",
+      "dueDate": "2024-11-29"
+    },
+    {
+      "id": "c3d4",
+      "name": "Build API Endpoints for Product Management",
+      "description": "Develop CRUD API endpoints to manage product data, including validation and error handling.",
+      "status": "not-started",
+      "priority": "high",
+      "dueDate": "2024-11-25"
+    },
+    {
+      "id": "e5f6",
+      "name": "Optimize Database Queries",
+      "description": "Review and optimize SQL queries for better performance on high-traffic product pages.",
+      "status": "in-progress",
+      "priority": "high",
+      "dueDate": "2024-12-01"
+    },
+    {
+      "id": "g7h8",
+      "name": "Create Responsive UI for Dashboard",
+      "description": "Design and implement responsive layout for user dashboard using Bootstrap and CSS Grid.",
+      "status": "not-started",
+      "priority": "medium",
+      "dueDate": "2024-12-05"
+    },
+    {
+      "id": "i9j0",
+      "name": "Set Up CI/CD Pipeline",
+      "description": "Configure automated build, test, and deploy workflows using GitHub Actions and Docker.",
+      "status": "in-progress",
+      "priority": "high",
+      "dueDate": "2024-11-30"
+    },
+    {
+      "id": "k1l2",
+      "name": "Implement Role-Based Access Control",
+      "description": "Add role-based access control for admin, user, and guest roles within the application.",
+      "status": "not-started",
+      "priority": "high",
+      "dueDate": "2024-12-10"
+    },
+    {
+      "id": "m3n4",
+      "name": "Write Unit Tests for Backend Functions",
+      "description": "Develop unit tests for backend services to ensure code reliability and catch bugs early.",
+      "status": "in-progress",
+      "priority": "medium",
+      "dueDate": "2024-12-15"
+    },
+    {
+      "id": "o5p6",
+      "name": "Integrate Payment Gateway",
+      "description": "Set up integration with Stripe API to handle secure transactions and store payment records.",
+      "status": "not-started",
+      "priority": "high",
+      "dueDate": "2024-12-20"
+    },
+    {
+      "id": "q7r8",
+      "name": "Refactor Legacy Code for Scalability",
+      "description": "Clean up and refactor outdated functions to improve scalability and maintainability.",
+      "status": "in-progress",
+      "priority": "medium",
+      "dueDate": "2024-12-10"
+    },
+    {
+      "id": "64ad",
+      "name": "frontend refactoring",
+      "description": "asydasdfasdf",
+      "status": "in-progress",
+      "priority": "high",
+      "dueDate": "2024-11-22"
+    },
+    {
+      "id": "ab32",
+      "name": "report to philipp",
+      "description": "asdfasdfadsf",
+      "status": "not-started",
+      "priority": "low",
+      "dueDate": "2024-11-03T00:00:00.000Z"
+    },
+    {
+      "id": "67fb",
+      "name": "asdfadsfdasfdsaadfs asdf lili",
+      "description": "asdfasdfdsaf",
+      "status": "not-started",
+      "priority": "medium",
+      "dueDate": "2024-11-24T09:34:05.299Z"
+    }
+  ]
+}

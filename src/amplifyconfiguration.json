@@ -1,0 +1,7 @@
+{
+  "aws_project_region": "eu-west-1",
+  "aws_cognito_region": "eu-west-1",
+  "aws_user_pools_id": "eu-west-1_Abxu45kvN",
+  "aws_user_pools_web_client_id": "6c6sgjuk12t56j92km66qra73v"
+}
+

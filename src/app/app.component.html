@@ -1,0 +1,12 @@
+<div class="mt-5 text-center">
+  <amplify-authenticator>
+    <ng-template amplifySlot="authenticated" let-user="user" let-signOut="signOut">
+      <!-- Add a margin top above the entire container -->
+      <div class="mt-5 text-center">
+        <h2 class="text-success">Welcome {{ user.signInDetails?.loginId }}!</h2>
+        <button class="btn btn-primary btn-lg" (click)="signOut()">Sign Out</button>
+        <router-outlet></router-outlet>
+      </div>
+    </ng-template>
+  </amplify-authenticator>
+</div>

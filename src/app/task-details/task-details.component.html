@@ -1,0 +1,51 @@
+<ng-container *ngrxLet="task$ as task">
+  @if (task) {
+    <div class="container mt-3">
+      <div class="row mb-3">
+        <div class="col-3">
+          <button class="btn btn-secondary" (click)="goBack()">Back</button>
+        </div>
+        <div class="col-9 d-flex justify-content-end gap-2">
+          <button class="btn btn-primary" (click)="onUpdateTask()">Update</button>
+          <button class="btn btn-danger" (click)="onDeleteTask()">Delete</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title mb-4">Task Details</h2>
+          <form [formGroup]="taskForm">
+            <div class="mb-3">
+              <label for="taskName" class="form-label">Name</label>
+              <input type="text" class="form-control" id="taskName" formControlName="name" required>
+            </div>
+            <div class="mb-3">
+              <label for="taskDescription" class="form-label">Description</label>
+              <textarea class="form-control" id="taskDescription" rows="3" formControlName="description"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="taskStatus" class="form-label">Status</label>
+              <select class="form-select" id="taskStatus" formControlName="status" required>
+                <option [value]="TaskStatus.NotStarted">Not Started</option>
+                <option [value]="TaskStatus.InProgress">In Progress</option>
+                <option [value]="TaskStatus.Completed">Completed</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="taskPriority" class="form-label">Priority</label>
+              <select class="form-select" id="taskPriority" formControlName="priority" required>
+                <option [value]="TaskPriority.Low">Low</option>
+                <option [value]="TaskPriority.Medium">Medium</option>
+                <option [value]="TaskPriority.High">High</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="taskDueDate" class="form-label">Due Date</label>
+              <input type="date" class="form-control" id="taskDueDate" formControlName="dueDate" required>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  }
+</ng-container>
