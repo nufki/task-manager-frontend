@@ -1,10 +1,16 @@
 # About
 This is the corresponding frontend of the simple task manager backend:
 https://github.com/nufki/task-manager-backend
-Feature:
+
+Features:
 - Simple frontend that allows to manage simple that are being stored using AWS
 - Simple user login that allows to interact with a task manager API on the backend that is backed by AWS cognito using AWS amplify
 - Easy gitops with github-actions that will trigger a deployment of the application on your AWS account (S3) 
+
+### other stuff
+This application uses:
+- bootstrap as the main design library: https://getbootstrap.com/
+- ngrx to manage the application state: https://ngrx.io/
 
 # configuration
 Configure AWS cognito parameter in: 

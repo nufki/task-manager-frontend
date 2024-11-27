@@ -4,6 +4,7 @@ import {TaskManagerComponent} from "./task-manager/task-manager.component";
 import {RouterOutlet} from "@angular/router";
 import {AmplifyAuthenticatorModule} from "@aws-amplify/ui-angular";
 import { signOut, AuthUser, getCurrentUser } from 'aws-amplify/auth';
+import {AppHeaderComponent} from "./ui/app-header/app-header.component";
 
 @Component({
   selector: 'app-root',
@@ -13,9 +14,10 @@ import { signOut, AuthUser, getCurrentUser } from 'aws-amplify/auth';
     TaskListComponent,
     TaskManagerComponent,
     RouterOutlet,
-    AmplifyAuthenticatorModule
+    AmplifyAuthenticatorModule,
+    AppHeaderComponent
   ],
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
   user: AuthUser | null = null; // Stores the authenticated user details
@@ -37,4 +39,5 @@ export class AppComponent {
   async signOut() {
     await signOut();
   }
+
 }
