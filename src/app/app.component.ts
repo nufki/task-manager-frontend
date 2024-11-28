@@ -20,24 +20,5 @@ import {AppHeaderComponent} from "./ui/app-header/app-header.component";
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  user: AuthUser | null = null; // Stores the authenticated user details
   title = 'task-manager-frontend';
-
-  constructor() {
-    this.checkUser(); //
-  }
-
-  async checkUser(): Promise<void> {
-    try {
-      this.user = await getCurrentUser();
-    } catch (error) {
-      console.log('No authenticated user', error);
-      this.user = null;
-    }
-  }
-
-  async signOut() {
-    await signOut();
-  }
-
 }
