@@ -8,6 +8,9 @@ import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {TaskActions} from "../+state/task.actions";
 import {LetDirective} from "@ngrx/component";
+import {ToastrService} from "ngx-toastr";
+import {Actions, ofType} from "@ngrx/effects";
+import {filter} from "rxjs/operators";
 
 @Component({
   selector: 'app-task-details',
@@ -16,7 +19,7 @@ import {LetDirective} from "@ngrx/component";
     NgIf,
     AsyncPipe,
     ReactiveFormsModule,
-    LetDirective
+    LetDirective,
   ],
   templateUrl: './task-details.component.html',
   styleUrl: './task-details.component.scss'
@@ -33,7 +36,9 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private readonly store: Store,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+    private actions$: Actions
   ) {
     this.task$ = this.store.select(selectSelectedTask);
     this.taskForm = this.fb.group({
@@ -57,6 +62,14 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
           dueDate: task.dueDate
         });
       }
+    });
+
+    // Listen to updateTaskSuccess action
+    this.actions$.pipe(
+      ofType(TaskActions.updateTaskSuccess),
+      filter(action => action.task.id === this.taskId) // Optional filter for this task
+    ).subscribe(() => {
+      this.toastr.success('Task updated successfully!', 'Success');
     });
   }
 

@@ -1,19 +1,22 @@
 # About
-This is the corresponding frontend of the simple task manager backend:
+This is the corresponding angular frontend of the simple task manager application backend:
 https://github.com/nufki/task-manager-backend
 
 Features:
-- Simple frontend that allows to manage simple that are being stored using AWS
-- Simple user login that allows to interact with a task manager API on the backend that is backed by AWS cognito using AWS amplify
+- Simple frontend that allows to list, create, update and delete tasks
+- The frontend interacts with the task manager API that is deployed in the backend
+- The API is secured by AWS Cognito that issues an ID Token once the user has signed up and is signed in.
+- The entire sign-up, sign-in, sign-out, etc. is provided by the AWS amplify library
 - Easy gitops with github-actions that will trigger a deployment of the application on your AWS account (S3) 
 
 ### other stuff
 This application uses:
 - bootstrap as the main design library: https://getbootstrap.com/
 - ngrx to manage the application state: https://ngrx.io/
+- 
 
 # configuration
-Configure AWS cognito parameter in: 
+Configure the AWS cognito parameters that will be available in you AWS account an region: 
 `amplifyconfiguration.json`
 ```
 {
@@ -30,9 +33,20 @@ Configure AWS cognito parameter in:
 ## run development server
 `ng serve`
 
-## useful docs on amplify
-amplify docu: https://docs.amplify.aws/angular/build-a-backend/auth/connect-your-frontend/manage-user-sessions/
 
+## useful docs:
+- amplify docu: https://docs.amplify.aws/angular/build-a-backend/auth/connect-your-frontend/manage-user-sessions/
+
+
+## Source map analyser
+When I run this application, I noticed that the bundle it generates is a bit large.
+When running source-map-analyzer I noticed that amplify does take 40% of the entire bundle :)
+Since this is rather a demo project, I did not make a big effort to reduce the bundle size.
+````
+ng build --configuration production --source-map=true
+
+source-map-explorer dist/task-manager-frontend/browser/main-ANWBVKHE.js --no-border-checks 
+````
 
 # Angular specific stuff that ships with the CLI
 

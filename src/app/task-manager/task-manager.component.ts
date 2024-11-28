@@ -8,6 +8,7 @@ import {AsyncPipe} from "@angular/common";
 import {LetDirective} from "@ngrx/component";
 import {AddTaskComponent} from "../ui/add-task/add-task.component";
 import * as ViewModelSelectors from "../+state/view-model.selectors";
+import {TasksState} from "../+state/view-model.selectors";
 
 
 @Component({
@@ -23,7 +24,7 @@ import * as ViewModelSelectors from "../+state/view-model.selectors";
   styleUrl: './task-manager.component.scss'
 })
 export class TaskManagerComponent implements OnInit {
-  protected vm$: Observable<{ loading: boolean; tasks: Task[]; sortingType: SortingType }>;
+  protected vm$: Observable<TasksState>;
 
   constructor(private readonly store: Store) {
     this.vm$ = this.store.select(ViewModelSelectors.selectTasks);

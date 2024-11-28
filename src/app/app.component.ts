@@ -21,7 +21,7 @@ import {AppHeaderComponent} from "./ui/app-header/app-header.component";
 })
 export class AppComponent {
   user: AuthUser | null = null; // Stores the authenticated user details
-  title = 'angular-ngrx-example';
+  title = 'task-manager-frontend';
 
   constructor() {
     this.checkUser(); //

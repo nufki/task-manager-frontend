@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 //@import "bootstrap/scss/bootstrap-grid";
 @import "bootstrap/scss/bootstrap";
+@import 'ngx-toastr/toastr';
+
 
 // Your custom styles
 html, body {
@@ -10,4 +12,29 @@ html, body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+.toast {
+  border: none;
+  border-radius: 0.25rem; /* Bootstrap's rounded corner */
+  padding: 1rem; /* Consistent padding */
+  margin-bottom: 1rem; /* Space between stacked toasts */
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1); /* Bootstrap-like shadow */
+}
+
+/* Centered bottom position */
+.toast-bottom-center {
+  bottom: 1rem; /* Align with Bootstrap spacing */
+  left: 50%;
+  transform: translateX(-50%);
+  position: fixed;
+  z-index: 1050; /* Ensure toasts appear above other elements */
+}
+
+/* Customize success toast */
+.toast-success {
+  background-color: #28a745; /* Green background */
+  color: white; /* White text */
+  font-size: 16px; /* Slightly larger text */
 }

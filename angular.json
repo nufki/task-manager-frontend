@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-ngrx-example": {
+    "task-manager-frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/angular-ngrx-example",
+            "outputPath": "dist/task-manager-frontend",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -30,7 +30,7 @@
               "src/styles.scss",
               "node_modules/@aws-amplify/ui-angular/theme.css",
               "node_modules/bootstrap/scss/bootstrap.scss",
-              "node_modules/bootstrap-icons/font/bootstrap-icons.css"
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.js"
@@ -38,11 +38,12 @@
           },
           "configurations": {
             "production": {
+              "sourceMap": true,
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "1MB",
+                  "maximumError": "3MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -70,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "angular-ngrx-example:build:production"
+              "buildTarget": "task-manager-frontend:build:production"
             },
             "development": {
-              "buildTarget": "angular-ngrx-example:build:development"
+              "buildTarget": "task-manager-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -99,7 +100,7 @@
               "src/styles.scss",
               "node_modules/@aws-amplify/ui-angular/theme.css",
               "node_modules/bootstrap/scss/bootstrap.scss",
-              "node_modules/bootstrap-icons/font/bootstrap-icons.css"
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.js"

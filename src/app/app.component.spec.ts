@@ -14,10 +14,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'angular-ngrx-example' title`, () => {
+  it(`should have the 'task-manager-frontend' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('angular-ngrx-example');
+    expect(app.title).toEqual('task-manager-frontend');
   });
 
 });

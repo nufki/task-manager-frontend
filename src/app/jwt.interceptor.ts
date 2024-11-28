@@ -4,12 +4,10 @@ import { mergeMap } from 'rxjs/operators';
 import { fetchAuthSession } from 'aws-amplify/auth';
 
 export function jwtInterceptor(request: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
-  console.log('Intercepting request...');
-
   return from(fetchAuthSession()).pipe(
     mergeMap((session: any) => {
-      console.log('Session fetched:', session);
       const token = session?.tokens?.idToken;
+      console.log('token' + token);
 
       // Clone the request to add the Authorization header if the token exists
       if (token) {
