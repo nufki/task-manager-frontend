@@ -3,7 +3,6 @@ import {TaskListComponent} from "./ui/task-list/task-list.component";
 import {TaskManagerComponent} from "./task-manager/task-manager.component";
 import {RouterOutlet} from "@angular/router";
 import {AmplifyAuthenticatorModule} from "@aws-amplify/ui-angular";
-import { signOut, AuthUser, getCurrentUser } from 'aws-amplify/auth';
 import {AppHeaderComponent} from "./ui/app-header/app-header.component";
 
 @Component({
@@ -20,5 +19,20 @@ import {AppHeaderComponent} from "./ui/app-header/app-header.component";
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'task-manager-frontend';
+  formFields = {
+    signUp: {
+      username: {
+        order: 1,
+        isRequired: true,
+      },
+      email: {
+        order: 2,
+        isRequired: true,
+      },
+      password: {
+        order: 3,
+        isRequired: true,
+      },
+    }
+  };
 }
