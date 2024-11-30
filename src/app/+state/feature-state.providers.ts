@@ -1,10 +1,17 @@
 import {provideState} from '@ngrx/store';
-import * as fromItems from './task.reducer';
+import * as fromTasks from './task/task.reducer';
+import * as fromUsers from './user/user.reducer';
+
 
 // It's a good practice to outsource an overview of all features within the application...
 export const STATE_PROVIDERS = [
   provideState({
-    name: fromItems.FEATURE_KEY,
-    reducer: fromItems.taskReducer,
+    name: fromTasks.FEATURE_KEY,
+    reducer: fromTasks.taskReducer,
+  }),
+
+  provideState({
+    name: fromUsers.FEATURE_KEY,
+    reducer: fromUsers.userReducer,
   }),
 ];

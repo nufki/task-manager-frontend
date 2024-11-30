@@ -1,16 +1,17 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {selectSelectedTask} from "../+state/task.selectors";
+import {selectSelectedTask} from "../+state/task/task.selectors";
 import {Observable, Subscription} from "rxjs";
-import {Task, TaskPriority, TaskStatus} from "../+state/task.model";
-import {AsyncPipe, NgIf} from "@angular/common";
+import {Task, TaskPriority, TaskStatus} from "../+state/task/task.model";
+import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {TaskActions} from "../+state/task.actions";
+import {TaskActions} from "../+state/task/task.actions";
 import {LetDirective} from "@ngrx/component";
 import {ToastrService} from "ngx-toastr";
 import {Actions, ofType} from "@ngrx/effects";
 import {filter} from "rxjs/operators";
+import {selectUsers} from "../+state/user/user.selectors";
 
 @Component({
   selector: 'app-task-details',
@@ -20,15 +21,18 @@ import {filter} from "rxjs/operators";
     AsyncPipe,
     ReactiveFormsModule,
     LetDirective,
+    NgForOf,
   ],
   templateUrl: './task-details.component.html',
   styleUrl: './task-details.component.scss'
 })
 export class TaskDetailsComponent implements OnInit, OnDestroy {
   protected task$: Observable<Task | undefined | null>;
+  protected userList$: Observable<string[]>;
   protected taskForm: FormGroup;
   protected readonly TaskStatus = TaskStatus;
   protected readonly TaskPriority = TaskPriority;
+  // public users: string[] = [];  // Property to hold users
 
   private taskId: string | undefined;
   private taskSubscription: Subscription | null = null;
@@ -41,12 +45,14 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
     private actions$: Actions
   ) {
     this.task$ = this.store.select(selectSelectedTask);
+    this.userList$ = this.store.select(selectUsers);
     this.taskForm = this.fb.group({
       name: ['', Validators.required],
       description: [''],
       status: [TaskStatus.NotStarted, Validators.required],
       priority: [TaskPriority.Medium, Validators.required],
-      dueDate: [null, Validators.required]
+      dueDate: [null, Validators.required],
+      assignedUser: [''],
     });
   }
 
@@ -59,7 +65,8 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
           description: task.description,
           status: task.status,
           priority: task.priority,
-          dueDate: task.dueDate
+          dueDate: task.dueDate,
+          assignedUser: task.assignedUser || ''
         });
       }
     });

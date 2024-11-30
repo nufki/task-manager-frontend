@@ -7,11 +7,12 @@ import {provideState, provideStore} from '@ngrx/store';
 import {provideStoreDevtools} from '@ngrx/store-devtools';
 import {provideRouterStore, routerReducer} from "@ngrx/router-store";
 import {provideEffects} from '@ngrx/effects';
-import {TaskEffects} from "./+state/task.effects";
+import {TaskEffects} from "./+state/task/task.effects";
 import {STATE_PROVIDERS} from "./+state/feature-state.providers";
 import {jwtInterceptor } from "./jwt.interceptor";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ToastrModule} from "ngx-toastr";
+import {UserEffects} from "./+state/user/user.effects";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,7 +30,7 @@ export const appConfig: ApplicationConfig = {
     // provideStore({
     //   [FEATURE_KEY]: itemReducer
     // }),
-    provideEffects([TaskEffects]),
+    provideEffects([TaskEffects, UserEffects]),
     // Wire up feature stores
     STATE_PROVIDERS,
     // Link router store

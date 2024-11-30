@@ -1,23 +1,28 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {Task, TaskPriority, TaskStatus} from '../../+state/task.model';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Task, TaskPriority, TaskStatus} from '../../+state/task/task.model';
 import {FormsModule} from "@angular/forms";
+import {NgForOf} from "@angular/common";
+import {UserActions} from "../../+state/user/user.actions";
 
 @Component({
   selector: 'app-add-task',
   standalone: true,
   imports: [
-    FormsModule
+    FormsModule,
+    NgForOf
   ],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss'
 })
 export class AddTaskComponent {
   @Output() addTask = new EventEmitter<Task>();
+  @Input() users: string[] = [];
 
   newTaskName = '';
   newTaskDescription = '';
   newTaskStatus: TaskStatus = TaskStatus.NotStarted;
   newTaskPriority: TaskPriority = TaskPriority.Medium;
+  newTaskAssignedUser: string = '';
   private _newTaskDueDate: Date = new Date();
 
   onAddTask(): void {
@@ -27,6 +32,7 @@ export class AddTaskComponent {
       status: this.newTaskStatus,
       priority: this.newTaskPriority,
       dueDate: this._newTaskDueDate,
+      assignedUser: this.newTaskAssignedUser,
     };
 
     this.addTask.emit(newTask);
@@ -48,5 +54,6 @@ export class AddTaskComponent {
     this.newTaskStatus = TaskStatus.NotStarted;
     this.newTaskPriority = TaskPriority.Medium;
     this._newTaskDueDate = new Date();
+    this.newTaskAssignedUser = '';
   }
 }

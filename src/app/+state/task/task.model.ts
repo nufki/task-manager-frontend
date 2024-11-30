@@ -17,12 +17,13 @@ export enum SortingType {
 }
 
 export interface Task {
-  id?: string;
+  id?: string; // This is only because I am lazy :) to create a "pojo" to the API where I don't yet have an API
   name: string;
   description: string;
   status: TaskStatus;
   priority: TaskPriority;
   dueDate: Date;
+  assignedUser?: string;
 }
 
 

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {SortingType, Task} from '../../+state/task.model';
+import {SortingType, Task} from '../../+state/task/task.model';
 import {AsyncPipe, DatePipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {AddTaskComponent} from "../add-task/add-task.component";

@@ -6,7 +6,7 @@ import {provideMockStore} from "@ngrx/store/testing";
 import {Observable} from "rxjs";
 import {Action} from "@ngrx/store";
 import * as ViewModelSelectors from "../+state/view-model.selectors";
-import {SortingType, TaskPriority, TaskStatus} from "../+state/task.model";
+import {SortingType, TaskPriority, TaskStatus} from "../+state/task/task.model";
 import {ActivatedRoute} from "@angular/router";
 
 describe('TaskManagerComponent', () => {

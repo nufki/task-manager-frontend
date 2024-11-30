@@ -1,7 +1,7 @@
 import {createActionGroup, emptyProps, props} from '@ngrx/store';
 import {SortingType, Task} from './task.model';
 
-// Actions
+// Task  Actions
 export const TaskActions = createActionGroup({
   source: 'Item',
   events: {

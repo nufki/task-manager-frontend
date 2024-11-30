@@ -43,6 +43,12 @@
               <label for="taskDueDate" class="form-label">Due Date</label>
               <input type="date" class="form-control" id="taskDueDate" formControlName="dueDate" required>
             </div>
+            <div class="mb-3">
+              <label for="assignedUser" class="form-label">Assigned User</label>
+              <select id="assignedUser" class="form-select" formControlName="assignedUser">
+                <option *ngFor="let user of userList$ | async " [value]="user">{{ user }}</option>
+              </select>
+            </div>
           </form>
         </div>
       </div>
