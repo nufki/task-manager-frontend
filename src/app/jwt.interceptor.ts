@@ -7,7 +7,7 @@ export function jwtInterceptor(request: HttpRequest<unknown>, next: HttpHandlerF
   return from(fetchAuthSession()).pipe(
     mergeMap((session: any) => {
       const token = session?.tokens?.idToken;
-      console.log('token' + token);
+      console.log('token: ' + token);
 
       // Clone the request to add the Authorization header if the token exists
       if (token) {
