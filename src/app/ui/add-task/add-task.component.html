@@ -38,6 +38,12 @@
             <label for="dueDate" class="form-label">Due Date:</label>
             <input type="date" id="dueDate" class="form-control" [(ngModel)]="newTaskDueDate" name="dueDate"/>
           </div>
+          <div class="mb-3">
+            <label for="assignedUser" class="form-label">Assigned User:</label>
+            <select id="assignedUser" class="form-select" [(ngModel)]="newTaskAssignedUser" name="assignedUser">
+              <option *ngFor="let user of users" [value]="user">{{ user }}</option>
+            </select>
+          </div>
         </form>
       </div>
       <div class="modal-footer">

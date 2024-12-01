@@ -2,7 +2,12 @@
   <h2 class="text-center mb-4">Task Manager</h2>
 </div>
 
-<app-add-task (addTask)="onAddNewTask($event)"></app-add-task>
+<ng-container *ngrxLet="userList$ as userList">
+  <app-add-task
+    [users]="userList"
+    (addTask)="onAddNewTask($event)">
+  </app-add-task>
+</ng-container>
 
 <ng-container *ngrxLet="vm$ as vm">
   <app-task-list
@@ -12,5 +17,3 @@
     (sortTasks)="onSortingTask($event)">
   </app-task-list>
 </ng-container>
-
-

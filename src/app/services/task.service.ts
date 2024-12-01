@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {map, tap} from 'rxjs/operators';
 import {HttpClient} from "@angular/common/http";
-import {Task, TaskPriority, TaskStatus} from "../+state/task.model";
+import {Task, TaskPriority, TaskStatus} from "../+state/task/task.model";
 import {environment} from "../../environments/environment";
 
 @Injectable({
@@ -29,8 +29,9 @@ export class TaskService {
       description: item.description,
       status: item.status as TaskStatus,
       priority: item.priority as TaskPriority,
-      dueDate: item.dueDate
-    } as Task;
+      dueDate: item.dueDate,
+      assignedUser: item.assignedUser,
+    };
   }
 
   public addTask(item: Task): Observable<Task> {
@@ -47,6 +48,7 @@ export class TaskService {
   }
 
   public updateTask(task: Task): Observable<Task> {
+    console.log('updateTask: ', task)
     return this.http.put<any>(`${environment.taskAPIUrl}/${task.id}`, task).pipe(
       tap(response => console.log('Server response for updateTask:', response)),
       map(response => this.mapToModelSingle(response))

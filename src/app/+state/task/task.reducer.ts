@@ -27,7 +27,7 @@ export const dataReducer = createReducer(
   on(TaskActions.loadTasks, (state) => {
     return {
       ...state,
-      loading: true
+      loading: true,
     };
   }),
   on(TaskActions.loadTasksSuccess, (state, {tasks}) => {
@@ -35,12 +35,6 @@ export const dataReducer = createReducer(
       ...state,
       loading: false,
     });
-  }),
-  on(TaskActions.loadTasksSuccess, (state) => {
-    return {
-      ...state,
-      loading: false,
-    };
   }),
   on(TaskActions.addTaskSuccess, (state, {task}) =>
     taskAdapter.addOne(task, state)
@@ -55,7 +49,7 @@ export const dataReducer = createReducer(
   })),
   on(TaskActions.selectTask, (state, {id}) => ({
     ...state,
-    selectedTaskId: id
+    selectedTaskId: id,
   })),
   on(TaskActions.sortTask, (state, {sortingType}) => ({
     ...state,

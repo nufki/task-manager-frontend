@@ -1,14 +1,16 @@
 import {inject, Injectable} from '@angular/core';
 import {Actions, createEffect, ofType, OnInitEffects} from '@ngrx/effects';
 import {TaskActions} from './task.actions';
-import {catchError, filter, map, mergeMap, tap} from 'rxjs/operators';
+import {catchError, filter, map, mergeMap, tap, withLatestFrom} from 'rxjs/operators';
 import {of} from 'rxjs';
-import {TaskService} from "../services/task.service";
+import {TaskService} from "../../services/task.service";
 import {ROUTER_NAVIGATION, RouterNavigatedAction} from "@ngrx/router-store";
+import {Store} from "@ngrx/store";
 
 @Injectable()
 export class TaskEffects implements OnInitEffects {
   private actions$ = inject(Actions);
+  private store = inject(Store);
   private itemService = inject(TaskService);
 
   loadAllTasks$ = createEffect(() =>
