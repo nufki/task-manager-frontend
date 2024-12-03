@@ -1,19 +1,21 @@
+<!-- Application Header -->
+<app-header [user]="user" (logOut)="signOut()"></app-header>
+
 <div class="container mt-5">
   <h2 class="text-center mb-4">Task Manager</h2>
 </div>
 
-<ng-container *ngrxLet="userList$ as userList">
+<ng-container *ngrxLet="{ users: userList$, tasks: tasks$ } as vm">
   <app-add-task
-    [users]="userList"
+    [users]="vm.users"
     (addTask)="onAddNewTask($event)">
   </app-add-task>
-</ng-container>
 
-<ng-container *ngrxLet="vm$ as vm">
+
   <app-task-list
-    [tasks]="vm.tasks"
-    [loading]="vm.loading"
-    [sortingType]="vm.sortingType"
+    [tasks]="vm.tasks.tasks"
+    [loading]="vm.tasks.loading"
+    [sortingType]="vm.tasks.sortingType"
     (sortTasks)="onSortingTask($event)">
   </app-task-list>
 </ng-container>

@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {selectSelectedTask} from "../+state/task/task.selectors";
 import {Observable, Subscription} from "rxjs";
@@ -76,7 +76,16 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
       ofType(TaskActions.updateTaskSuccess),
       filter(action => action.task.id === this.taskId) // Optional filter for this task
     ).subscribe(() => {
-      this.toastr.success('Task updated successfully!', 'Success');
+      this.toastr.success('Task successfully updated!', 'Success');
+      this.goBack();
+    });
+
+    // Same for the deelte to updateTaskSuccess action
+    this.actions$.pipe(
+      ofType(TaskActions.deleteTaskSuccess),
+    ).subscribe(() => {
+      this.toastr.success('Task successfully deleted!', 'Success');
+      this.goBack();
     });
   }
 
@@ -87,7 +96,7 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
   }
 
   public goBack() {
-    this.router.navigate(['/tasks']);
+    this.router.navigate(['../']);
   }
 
   public onDeleteTask() {
@@ -95,7 +104,6 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
       if (this.taskId)
         this.store.dispatch(TaskActions.deleteTask({id: this.taskId}));
     }
-    this.goBack();
   }
 
   public onUpdateTask() {

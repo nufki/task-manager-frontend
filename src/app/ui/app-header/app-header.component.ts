@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {GetCurrentUserOutput} from 'aws-amplify/auth';
 
 @Component({
   selector: 'app-header',
@@ -8,6 +9,6 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
   styleUrl: './app-header.component.scss'
 })
 export class AppHeaderComponent {
-  @Input() user: any;
+  @Input() user?: GetCurrentUserOutput;
   @Output() logOut = new EventEmitter<void>();
 }

@@ -1,9 +1,12 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {SortingType, Task} from '../../+state/task/task.model';
 import {AsyncPipe, DatePipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {AddTaskComponent} from "../add-task/add-task.component";
 import {RouterLink} from "@angular/router";
+import {DeviceService} from "../../services/device.service";
+import {Subscription} from "rxjs";
+import {DeviceType} from "../../services/device-type.enum";
 
 @Component({
   selector: 'app-task-list',
@@ -21,12 +24,33 @@ import {RouterLink} from "@angular/router";
   ],
   styleUrls: ['./task-list.component.scss']
 })
-export class TaskListComponent {
+export class TaskListComponent implements OnInit, OnDestroy {
   @Input() tasks: Task[] | undefined;
   @Input() loading: boolean = false;
   @Input() sortingType: SortingType = SortingType.DUE_DATE;
   @Output() addTask = new EventEmitter<Task>();
   @Output() sortTasks = new EventEmitter<SortingType>();
+  deviceType: DeviceType = DeviceType.DESKTOP;
+  deviceSubscription: Subscription | undefined;
+  today = new Date();
 
   protected readonly SortingType = SortingType;
+
+  constructor(private deviceService: DeviceService) {}
+
+  ngOnInit() {
+    this.deviceSubscription = this.deviceService.getDeviceType().subscribe(type => {
+      this.deviceType = type;
+      console.log('device type changed....', type)
+    });
+    this.deviceService.updateDeviceType(); // Ensure we get the device type on load
+  }
+
+  ngOnDestroy() {
+    if (this.deviceSubscription) {
+      this.deviceSubscription.unsubscribe();
+    }
+  }
+
+  protected readonly DeviceType = DeviceType;
 }

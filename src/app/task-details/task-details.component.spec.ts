@@ -4,7 +4,6 @@ import {TaskDetailsComponent} from './task-details.component';
 import {provideMockActions} from "@ngrx/effects/testing";
 import {provideMockStore} from "@ngrx/store/testing";
 import {SortingType, TaskPriority, TaskStatus} from "../+state/task/task.model";
-import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
 import {Action} from "@ngrx/store";
 import {selectSelectedTask} from "../+state/task/task.selectors";

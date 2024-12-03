@@ -29,7 +29,7 @@ export class TaskService {
       description: item.description,
       status: item.status as TaskStatus,
       priority: item.priority as TaskPriority,
-      dueDate: item.dueDate,
+      dueDate: new Date(item.dueDate),
       assignedUser: item.assignedUser,
     };
   }

@@ -31,15 +31,15 @@ describe('TaskManagerComponent', () => {
               value: {
                 loading: false,
                 tasks: [{
-                    id: '1',
-                    name: 'Example Task',
-                    description: 'Example Description',
-                    status: TaskStatus.Completed,
-                    priority: TaskPriority.High,
-                    dueDate: new Date(),
-                  }
+                  id: '1',
+                  name: 'Example Task',
+                  description: 'Example Description',
+                  status: TaskStatus.Completed,
+                  priority: TaskPriority.High,
+                  dueDate: new Date(),
+                }
                 ],
-                sortingType:SortingType.HIGHEST_PRIO
+                sortingType: SortingType.HIGHEST_PRIO
               },
             },
           ],
@@ -48,7 +48,7 @@ describe('TaskManagerComponent', () => {
           provide: ActivatedRoute,
           useValue: {
             // Mock parameters or query parameters as needed
-            snapshot: { paramMap: { get: () => '1' } }
+            snapshot: {paramMap: {get: () => '1'}}
           }
         }
       ],
