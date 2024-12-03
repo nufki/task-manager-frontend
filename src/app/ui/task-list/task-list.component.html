@@ -14,7 +14,7 @@
             class="card shadow-sm"
             [ngClass]="{
               'bg-warning': !task.assignedUser,
-              'border-danger': task.dueDate && task.dueDate <= today
+              'bg-danger-subtle border-danger': task.dueDate && task.dueDate < today
             }">
             <div class="card-body">
               <h5 class="card-title">{{ task.name }}</h5>
@@ -66,7 +66,7 @@
           <tr *ngFor="let task of tasks" [routerLink]="['./', task.id]" class="cursor-pointer"
               [ngClass]="{
                 'table-warning': !task.assignedUser,
-                'table-danger': task.dueDate && task.dueDate <= today
+                'table-danger': task.dueDate && task.dueDate < today
               }">
             <td>{{ task.name }}</td>
             <td>{{ task.dueDate | date }}</td>
