@@ -1,6 +1,6 @@
 /* Make the card body scrollable on small screens */
 .card-body {
-  max-height: 60vh;  /* Limit the height of the form content */
+  //max-height: 60vh;  /* Limit the height of the form content */
   overflow-y: auto;  /* Allow scrolling if content overflows */
 }
 

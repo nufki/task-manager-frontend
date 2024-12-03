@@ -1,10 +1,9 @@
 <ng-container *ngrxLet="task$ as task">
-  @if (task) {
+  <div *ngIf="task">
     <div class="container mt-3">
-      <!-- Back and Action Buttons -->
       <div class="row mb-3">
         <div class="col-12 col-md-3 mb-2 mb-md-0">
-          <button class="btn btn-secondary w-100" (click)="goBack()">Back</button>
+          <button class="btn btn-outline-primary rounded w-100" (click)="goBack()">Back</button>
         </div>
         <div class="col-12 col-md-9 d-flex justify-content-end gap-2">
           <button class="btn btn-secondary w-100 w-md-auto" (click)="onUpdateTask()">Update</button>
@@ -17,6 +16,7 @@
         <div class="card-body">
           <h2 class="card-title mb-4 text-center">Task Details</h2>
           <form [formGroup]="taskForm">
+            <!-- Form Fields -->
             <div class="mb-3">
               <label for="taskName" class="form-label">Name</label>
               <input type="text" class="form-control" id="taskName" formControlName="name" required>
@@ -48,7 +48,7 @@
             <div class="mb-3">
               <label for="assignedUser" class="form-label">Assigned User</label>
               <select id="assignedUser" class="form-select" formControlName="assignedUser">
-                <option *ngFor="let user of userList$ | async " [value]="user">{{ user }}</option>
+                <option *ngFor="let user of userList$ | async" [value]="user">{{ user }}</option>
                 <option value="">Select an User (Optional)</option>
               </select>
             </div>
@@ -56,5 +56,5 @@
         </div>
       </div>
     </div>
-  }
+  </div>
 </ng-container>

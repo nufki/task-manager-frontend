@@ -1,86 +1,85 @@
-<div *ngIf="loading" class="d-flex justify-content-center my-4">
-  <div class="spinner-border text-primary" role="status">
-    <span class="visually-hidden">Loading...</span>
+@if (loading) {
+  <div class="d-flex justify-content-center my-4">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
   </div>
-</div>
+}
 
-<div *ngIf="!loading">
-  <div *ngIf="tasks && tasks.length > 0">
+@if (!loading) {
+  @if (tasks && tasks.length > 0) {
     <!-- Mobile View with Cards -->
-    <div *ngIf="deviceType === DeviceType.MOBILE">
+    @if (deviceType === DeviceType.MOBILE) {
       <div class="row g-3">
-        <div class="col-12" *ngFor="let task of tasks">
-          <div
-            class="card shadow-sm"
+        <!-- Looping with @for, though this will not work in Angular directly, you need to keep *ngFor -->
+        @for (task of tasks; track task.id) {
+          <div class="col-12">
+            <div
+              class="card shadow-sm ms-4 me-4"
             [ngClass]="{
-              'bg-warning': !task.assignedUser,
-              'bg-danger-subtle border-danger': task.dueDate && task.dueDate < today
+            'bg-warning': !task.assignedUser,
+            'bg-danger-subtle border-danger': task.dueDate && task.dueDate < today
             }">
             <div class="card-body">
               <h5 class="card-title">{{ task.name }}</h5>
               <p class="card-text">
-                <strong>Due Date:</strong> {{ task.dueDate | date }} <br />
-                <strong>Priority:</strong> {{ task.priority }} <br />
-                <strong>Status:</strong> {{ task.status }} <br />
+                <strong>Due Date:</strong>
+                <span [ngClass]="{'text-danger fw-bold': task.dueDate && task.dueDate < today}">
+                    {{ task.dueDate | date }}
+                  </span>
+                <br/>
+                <strong>Priority:</strong> {{ task.priority }} <br/>
+                <strong>Status:</strong> {{ task.status }} <br/>
                 <strong>Assigned:</strong>
-                <span [ngClass]="{'text-danger': !task.assignedUser}">
-                  {{ task.assignedUser || 'Unassigned' }}
-                </span>
+                <span [ngClass]="{'text-danger fw-bold': !task.assignedUser}">
+                    {{ task.assignedUser || 'Unassigned' }}
+                  </span>
               </p>
               <a [routerLink]="['./', task.id]" class="btn btn-secondary btn-sm">View Details</a>
             </div>
           </div>
-        </div>
+          </div>
+        }
       </div>
-    </div>
+    }
 
     <!-- Desktop View (Table) -->
-    <div *ngIf="deviceType !== DeviceType.MOBILE">
-      <div class="m-1">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <p class="mb-0">Total tasks: <strong>{{ tasks.length }}</strong></p>
-          <div class="col-9 d-flex justify-content-end align-items-center gap-2">
-            <label for="sortingDropdown">Sorting:</label>
-            <select id="sortingDropdown" class="form-select w-auto me-2"
-                    [(ngModel)]="sortingType"
-                    (change)="sortTasks.emit(sortingType)">
-              <option [value]="SortingType.HIGHEST_PRIO">Sort by Priority</option>
-              <option [value]="SortingType.DUE_DATE">Sort by Due Date</option>
-              <option [value]="SortingType.STATUS">Sort by Status</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Task Table -->
-        <table class="table table-hover">
-          <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Due Date</th>
-            <th scope="col">Priority</th>
-            <th scope="col">Status</th>
-            <th scope="col">Assigned</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let task of tasks" [routerLink]="['./', task.id]" class="cursor-pointer"
-              [ngClass]="{
-                'table-warning': !task.assignedUser,
-                'table-danger': task.dueDate && task.dueDate < today
-              }">
-            <td>{{ task.name }}</td>
-            <td>{{ task.dueDate | date }}</td>
-            <td>{{ task.priority }}</td>
-            <td>{{ task.status }}</td>
-            <td>
-              <span [ngClass]="{'text-danger': !task.assignedUser}">
-                {{ task.assignedUser || 'Unassigned' }}
-              </span>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
+    @if (deviceType !== DeviceType.MOBILE) {
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Due Date</th>
+          <th scope="col">Priority</th>
+          <th scope="col">Status</th>
+          <th scope="col">Assigned</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Looping with @for will not work in Angular. Keep *ngFor -->
+          @for (task of tasks; track task.id) {
+            <tr [routerLink]="['./', task.id]" class="cursor-pointer"
+                [ngClass]="{
+                  'table-warning': !task.assignedUser,
+                  'table-danger': task.dueDate && task.dueDate < today
+                }">
+              <td>{{ task.name }}</td>
+              <td>
+                <span [ngClass]="{'text-danger fw-bold': task.dueDate && task.dueDate < today}">
+                  {{ task.dueDate | date }}
+                </span>
+              </td>
+              <td>{{ task.priority }}</td>
+              <td>{{ task.status }}</td>
+              <td>
+                <span [ngClass]="{'text-danger fw-bold': !task.assignedUser}">
+                  {{ task.assignedUser || 'Unassigned' }}
+                </span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  }
+}
