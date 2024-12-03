@@ -1,9 +1,15 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TaskListComponent} from "./ui/task-list/task-list.component";
 import {TaskManagerComponent} from "./task-manager/task-manager.component";
-import {RouterOutlet} from "@angular/router";
-import {AmplifyAuthenticatorModule} from "@aws-amplify/ui-angular";
+import {Router, RouterOutlet} from "@angular/router";
+import {AmplifyAuthenticatorModule, AuthenticatorService} from '@aws-amplify/ui-angular';
 import {AppHeaderComponent} from "./ui/app-header/app-header.component";
+import {NgIf} from "@angular/common";
+import {Amplify} from "aws-amplify";
+import outputs from '../amplifyconfiguration.json';
+import {Hub} from 'aws-amplify/utils';
+
+Amplify.configure(outputs);
 
 @Component({
   selector: 'app-root',
@@ -14,25 +20,35 @@ import {AppHeaderComponent} from "./ui/app-header/app-header.component";
     TaskManagerComponent,
     RouterOutlet,
     AmplifyAuthenticatorModule,
-    AppHeaderComponent
+    AppHeaderComponent,
+    NgIf
   ],
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
-  formFields = {
-    signUp: {
-      username: {
-        order: 1,
-        isRequired: true,
-      },
-      email: {
-        order: 2,
-        isRequired: true,
-      },
-      password: {
-        order: 3,
-        isRequired: true,
-      },
-    }
-  };
+export class AppComponent implements OnInit, OnDestroy {
+  private hubListener: any;
+
+  constructor(public authenticator: AuthenticatorService, private router: Router) {
+    Amplify.configure(outputs);
+  }
+
+  ngOnInit(): void {
+    // Listen for authentication events
+    this.hubListener = Hub.listen('auth', (data) => {
+      const {event} = data.payload;
+      if (event === 'signedIn') {
+        console.log('User signed in');
+        this.router.navigate(['/tasks']); // Replace with your desired route
+      } else if (event === 'signedOut') {
+        console.log('User signed out');
+        this.router.navigate(['/login']); // Optional: redirect to login page on sign-out
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    // Clean up the Hub listener when the component is destroyed
+    Hub.listen('auth', this.hubListener);
+  }
+
 }

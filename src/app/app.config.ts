@@ -2,14 +2,14 @@ import {ApplicationConfig, importProvidersFrom, provideZoneChangeDetection} from
 import {provideRouter} from '@angular/router';
 
 import {routes} from './app.routes';
-import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptors} from '@angular/common/http';
+import {provideHttpClient, withInterceptors} from '@angular/common/http';
 import {provideState, provideStore} from '@ngrx/store';
 import {provideStoreDevtools} from '@ngrx/store-devtools';
 import {provideRouterStore, routerReducer} from "@ngrx/router-store";
 import {provideEffects} from '@ngrx/effects';
 import {TaskEffects} from "./+state/task/task.effects";
 import {STATE_PROVIDERS} from "./+state/feature-state.providers";
-import {jwtInterceptor } from "./jwt.interceptor";
+import {jwtInterceptor} from "./jwt.interceptor";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ToastrModule} from "ngx-toastr";
 import {UserEffects} from "./+state/user/user.effects";
@@ -38,7 +38,7 @@ export const appConfig: ApplicationConfig = {
     provideRouterStore({}),
     provideStoreDevtools({}),
     provideHttpClient(
-      withInterceptors([ jwtInterceptor ]),
+      withInterceptors([jwtInterceptor]),
     ),
     provideZoneChangeDetection({eventCoalescing: true}),
     provideRouter(routes),

@@ -1,8 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Task, TaskPriority, TaskStatus} from '../../+state/task/task.model';
 import {FormsModule} from "@angular/forms";
 import {NgForOf} from "@angular/common";
-import {UserActions} from "../../+state/user/user.actions";
 
 @Component({
   selector: 'app-add-task',

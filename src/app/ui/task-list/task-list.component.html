@@ -1,50 +1,86 @@
-@if (loading) {
-  <div class="d-flex justify-content-center my-4">
-    <div class="spinner-border text-primary" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
+<div *ngIf="loading" class="d-flex justify-content-center my-4">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
   </div>
-} @else {
+</div>
 
-  @if (tasks && tasks.length > 0) {
-    <div class="m-1">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <p class="mb-0">Total tasks: <strong>{{ tasks.length }}</strong></p>
-
-        <div class="col-9 d-flex justify-content-end align-items-center gap-2">
-          <label for="sortingDropdown">Sorting:</label>
-          <select id="sortingDropdown" class="form-select w-auto me-2"
-                  [(ngModel)]="sortingType"
-                  (change)="sortTasks.emit(sortingType)">
-            <option [value]="SortingType.HIGHEST_PRIO">Sort by Priority</option>
-            <option [value]="SortingType.DUE_DATE">Sort by Due Date</option>
-            <option [value]="SortingType.STATUS">Sort by Status</option>
-          </select>
+<div *ngIf="!loading">
+  <div *ngIf="tasks && tasks.length > 0">
+    <!-- Mobile View with Cards -->
+    <div *ngIf="deviceType === DeviceType.MOBILE">
+      <div class="row g-3">
+        <div class="col-12" *ngFor="let task of tasks">
+          <div
+            class="card shadow-sm"
+            [ngClass]="{
+              'bg-warning': !task.assignedUser,
+              'border-danger': task.dueDate && task.dueDate <= today
+            }">
+            <div class="card-body">
+              <h5 class="card-title">{{ task.name }}</h5>
+              <p class="card-text">
+                <strong>Due Date:</strong> {{ task.dueDate | date }} <br />
+                <strong>Priority:</strong> {{ task.priority }} <br />
+                <strong>Status:</strong> {{ task.status }} <br />
+                <strong>Assigned:</strong>
+                <span [ngClass]="{'text-danger': !task.assignedUser}">
+                  {{ task.assignedUser || 'Unassigned' }}
+                </span>
+              </p>
+              <a [routerLink]="['./', task.id]" class="btn btn-secondary btn-sm">View Details</a>
+            </div>
+          </div>
         </div>
       </div>
-
-      <!-- Task Table -->
-      <table class="table table-hover">
-        <thead>
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Due Date</th>
-          <th scope="col">Priority</th>
-          <th scope="col">Status</th>
-          <th scope="col">Assigned</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let task of tasks" [routerLink]="['/tasks', task.id]" class="cursor-pointer">
-          <td>{{ task.name }}</td>
-          <td>{{ task.dueDate | date }}</td>
-          <td>{{ task.priority }}</td>
-          <td>{{ task.status }}</td>
-          <td>{{ task.assignedUser }}</td>
-        </tr>
-        </tbody>
-      </table>
-
     </div>
-  }
-}
+
+    <!-- Desktop View (Table) -->
+    <div *ngIf="deviceType !== DeviceType.MOBILE">
+      <div class="m-1">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <p class="mb-0">Total tasks: <strong>{{ tasks.length }}</strong></p>
+          <div class="col-9 d-flex justify-content-end align-items-center gap-2">
+            <label for="sortingDropdown">Sorting:</label>
+            <select id="sortingDropdown" class="form-select w-auto me-2"
+                    [(ngModel)]="sortingType"
+                    (change)="sortTasks.emit(sortingType)">
+              <option [value]="SortingType.HIGHEST_PRIO">Sort by Priority</option>
+              <option [value]="SortingType.DUE_DATE">Sort by Due Date</option>
+              <option [value]="SortingType.STATUS">Sort by Status</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Task Table -->
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Due Date</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Status</th>
+            <th scope="col">Assigned</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let task of tasks" [routerLink]="['./', task.id]" class="cursor-pointer"
+              [ngClass]="{
+                'table-warning': !task.assignedUser,
+                'table-danger': task.dueDate && task.dueDate <= today
+              }">
+            <td>{{ task.name }}</td>
+            <td>{{ task.dueDate | date }}</td>
+            <td>{{ task.priority }}</td>
+            <td>{{ task.status }}</td>
+            <td>
+              <span [ngClass]="{'text-danger': !task.assignedUser}">
+                {{ task.assignedUser || 'Unassigned' }}
+              </span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

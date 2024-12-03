@@ -11,7 +11,8 @@ import * as ViewModelSelectors from "../+state/view-model.selectors";
 import {TasksState} from "../+state/view-model.selectors";
 import {UserActions} from "../+state/user/user.actions";
 import {selectUsers} from "../+state/user/user.selectors";
-
+import {AppHeaderComponent} from "../ui/app-header/app-header.component";
+import {getCurrentUser, GetCurrentUserOutput, signOut} from 'aws-amplify/auth';
 
 @Component({
   selector: 'app-task-manager',
@@ -20,28 +21,26 @@ import {selectUsers} from "../+state/user/user.selectors";
     TaskListComponent,
     AsyncPipe,
     LetDirective,
-    AddTaskComponent
+    AddTaskComponent,
+    AppHeaderComponent
   ],
   templateUrl: './task-manager.component.html',
   styleUrl: './task-manager.component.scss'
 })
 export class TaskManagerComponent implements OnInit {
-  protected vm$: Observable<TasksState>;
+  protected tasks$: Observable<TasksState>;
   protected userList$: Observable<string[]>;
+  protected user?: GetCurrentUserOutput;
 
   constructor(private readonly store: Store) {
-    this.vm$ = this.store.select(ViewModelSelectors.selectTasks);
+    this.tasks$ = this.store.select(ViewModelSelectors.selectTasks);
     this.userList$ = this.store.select(selectUsers);
   }
 
   ngOnInit() {
     this.store.dispatch(TaskActions.loadTasks());
     this.store.dispatch(UserActions.userLoadUsers());
-
-    // Subscribe to userList$ to log the emitted value
-    // this.userList$.subscribe(users => {
-    //   console.log('User List:', users);
-    // });
+    this.currentAuthenticatedUser();
   }
 
   public onLoadUsers($event: void) {
@@ -56,4 +55,26 @@ export class TaskManagerComponent implements OnInit {
   public onSortingTask(sortingType: SortingType) {
     this.store.dispatch(TaskActions.sortTask({sortingType}));
   }
+
+  async signOut() {
+    try {
+      await signOut();
+    } catch (error) {
+      console.log('error signing out: ', error);
+    }
+  }
+
+  async currentAuthenticatedUser() {
+    try {
+      this.user = await getCurrentUser();
+      const {username, userId, signInDetails} = this.user;
+
+      console.log(`The username: ${username}`);
+      console.log(`The userId: ${userId}`);
+      console.log(`The signInDetails: ${signInDetails}`);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
 }

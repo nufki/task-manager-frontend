@@ -1,11 +1,1 @@
-<amplify-authenticator [formFields]="formFields">
-  <ng-template amplifySlot="authenticated" let-user="user" let-signOut="signOut">
-    <!-- Application Header -->
-    <app-header [user]="user" (logOut)="signOut()"></app-header>
-    <!-- Main content-->
-    <div class="container mt-5">
-      <router-outlet></router-outlet>
-    </div>
-  </ng-template>
-</amplify-authenticator>
-
+<router-outlet/>

@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 import {environment} from "../../environments/environment";
 import {map} from "rxjs/operators";
 
@@ -9,7 +9,8 @@ import {map} from "rxjs/operators";
 })
 export class UserService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   public fetchUsers(): Observable<string[]> {
     return this.http.get<{ users: string[] }>(environment.userAPIUrl).pipe(

@@ -1,0 +1,29 @@
+/* Make the card body scrollable on small screens */
+.card-body {
+  max-height: 60vh;  /* Limit the height of the form content */
+  overflow-y: auto;  /* Allow scrolling if content overflows */
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .card-body {
+    max-height: 70vh;  /* Allow more height on smaller screens */
+  }
+}
+
+/* buttons to be full width on small screens */
+@media (max-width: 576px) {
+  .btn {
+    width: 100%;
+  }
+}
+
+/* Add margin to the last form element otherwise the assigned user cannot be properly set */
+.mb-3:last-child {
+  margin-bottom: 30px;
+}
+
+.card-body {
+  padding-bottom: 30px;  /* Add some bottom padding */
+}
+

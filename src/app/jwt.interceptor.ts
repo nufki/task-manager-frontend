@@ -1,7 +1,7 @@
-import { HttpEvent, HttpHandlerFn, HttpRequest } from '@angular/common/http';
-import { from, Observable } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
-import { fetchAuthSession } from 'aws-amplify/auth';
+import {HttpEvent, HttpHandlerFn, HttpRequest} from '@angular/common/http';
+import {from, Observable} from 'rxjs';
+import {mergeMap} from 'rxjs/operators';
+import {fetchAuthSession} from 'aws-amplify/auth';
 
 export function jwtInterceptor(request: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
   return from(fetchAuthSession()).pipe(
