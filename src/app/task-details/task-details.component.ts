@@ -59,13 +59,15 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.taskSubscription = this.task$.subscribe(task => {
       if (task) {
+        const dueDate = task.dueDate ? new Date(task.dueDate).toISOString().split('T')[0] : null;
+
         this.taskId = task.id;
         this.taskForm.patchValue({
           name: task.name,
           description: task.description,
           status: task.status,
           priority: task.priority,
-          dueDate: task.dueDate,
+          dueDate: dueDate,
           assignedUser: task.assignedUser || ''
         });
       }
