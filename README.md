@@ -9,6 +9,9 @@ Features:
 - The entire sign-up, sign-in, sign-out, etc. is provided by the AWS amplify library
 - Easy gitops with github-actions that will trigger a deployment of the application on your AWS account (S3) 
 
+Demo Link: https://d1b07mtd9j77x2.cloudfront.net/login
+
+
 ### other stuff
 This application uses:
 - bootstrap as the main design library: https://getbootstrap.com/
