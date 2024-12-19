@@ -8,6 +8,23 @@
 
 @if (!loading) {
   @if (tasks && tasks.length > 0) {
+    <div class="m-2">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="col-9"></div>
+        <div class="col-3 d-flex justify-content-end align-items-center">
+          <label for="sortingDropdown" class="mb-0 me-2">Sorting:</label>
+          <select id="sortingDropdown" class="form-select w-auto"
+                  [(ngModel)]="sortingType"
+                  (change)="sortTasks.emit(sortingType)">
+            <option [value]="SortingType.HIGHEST_PRIO">Sort by Priority</option>
+            <option [value]="SortingType.DUE_DATE">Sort by Due Date</option>
+            <option [value]="SortingType.STATUS">Sort by Status</option>
+          </select>
+        </div>
+      </div>
+      <p class="mb-0 ms-3"><strong>{{ tasks.length }} tasks</strong></p>
+    </div>
+
     <!-- Mobile View with Cards -->
     @if (deviceType === DeviceType.MOBILE) {
       <div class="row g-3">
@@ -16,28 +33,28 @@
           <div class="col-12">
             <div
               class="card shadow-sm ms-4 me-4"
-            [ngClass]="{
+              [ngClass]="{
             'bg-warning': !task.assignedUser,
             'bg-danger-subtle border-danger': task.dueDate && task.dueDate < today
             }">
-            <div class="card-body">
-              <h5 class="card-title">{{ task.name }}</h5>
-              <p class="card-text">
-                <strong>Due Date:</strong>
-                <span [ngClass]="{'text-danger fw-bold': task.dueDate && task.dueDate < today}">
+              <div class="card-body">
+                <h5 class="card-title">{{ task.name }}</h5>
+                <p class="card-text">
+                  <strong>Due Date:</strong>
+                  <span [ngClass]="{'text-danger fw-bold': task.dueDate && task.dueDate < today}">
                     {{ task.dueDate | date }}
                   </span>
-                <br/>
-                <strong>Priority:</strong> {{ task.priority }} <br/>
-                <strong>Status:</strong> {{ task.status }} <br/>
-                <strong>Assigned:</strong>
-                <span [ngClass]="{'text-danger fw-bold': !task.assignedUser}">
+                  <br/>
+                  <strong>Priority:</strong> {{ task.priority }} <br/>
+                  <strong>Status:</strong> {{ task.status }} <br/>
+                  <strong>Assigned:</strong>
+                  <span [ngClass]="{'text-danger fw-bold': !task.assignedUser}">
                     {{ task.assignedUser || 'Unassigned' }}
                   </span>
-              </p>
-              <a [routerLink]="['./', task.id]" class="btn btn-secondary btn-sm">View Details</a>
+                </p>
+                <a [routerLink]="['./', task.id]" class="btn btn-secondary btn-sm">View Details</a>
+              </div>
             </div>
-          </div>
           </div>
         }
       </div>
