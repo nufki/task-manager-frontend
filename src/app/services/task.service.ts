@@ -18,10 +18,10 @@ export class TaskService {
   constructor(private http: HttpClient) {
   }
 
-  public fetchAllTasks(limit?: number, paginationToken?: string): Observable<{ tasks: Task[]; nextToken: string | null }> {
-    let url = `${environment.taskAPIUrl}?limit=${limit || 10}`;
+  public fetchAllTasks(paginationToken?: string, limit?: number): Observable<{ tasks: Task[]; nextToken: string | null }> {
+    let url = `${environment.taskAPIUrl}?limit=${limit || environment.taskAPILimit}`;
     if (paginationToken) {
-      url += `&paginationToken=${encodeURIComponent(paginationToken)}`;
+      url += `&nextToken=${encodeURIComponent(paginationToken)}`;
     }
 
     return this.http.get<TaskApiResponse>(url).pipe(

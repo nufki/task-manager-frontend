@@ -1,5 +1,6 @@
 import {createActionGroup, emptyProps, props} from '@ngrx/store';
 import {SortingType, Task} from './task.model';
+import {TaskApiResponse} from "../../services/task.service";
 
 // Task  Actions
 export const TaskActions = createActionGroup({
@@ -7,7 +8,7 @@ export const TaskActions = createActionGroup({
   events: {
     'On Init': emptyProps,
     'Load Tasks': emptyProps(),
-    'Load Tasks Success': props<{ tasks: Task[] }>(),
+    'Load Tasks Success': props<{ tasks: Task[], nextToken?: string }>(),
     'Load Tasks Failure': props<{ error: string }>(),
     'Add Task': props<{ task: Task }>(),
     'Add Task Success': props<{ task: Task }>(),
