@@ -5,6 +5,12 @@ import {HttpClient} from "@angular/common/http";
 import {Task, TaskPriority, TaskStatus} from "../+state/task/task.model";
 import {environment} from "../../environments/environment";
 
+
+export interface TaskApiResponse {
+  items: any[];
+  nextToken: string | null;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,9 +18,17 @@ export class TaskService {
   constructor(private http: HttpClient) {
   }
 
-  public fetchAllTasks(): Observable<Task[]> {
-    return this.http.get<any[]>(environment.taskAPIUrl).pipe(
-      map(data => this.mapToModelArray(data))
+  public fetchAllTasks(limit?: number, paginationToken?: string): Observable<{ tasks: Task[]; nextToken: string | null }> {
+    let url = `${environment.taskAPIUrl}?limit=${limit || 10}`;
+    if (paginationToken) {
+      url += `&paginationToken=${encodeURIComponent(paginationToken)}`;
+    }
+
+    return this.http.get<TaskApiResponse>(url).pipe(
+      map((response) => ({
+        tasks: this.mapToModelArray(response.items),
+        nextToken: response.nextToken,
+      }))
     );
   }
 

@@ -19,7 +19,7 @@ export class TaskEffects implements OnInitEffects {
         mergeMap(() => this.itemService.fetchAllTasks()
           .pipe(
             tap(data => console.log('Fetched tasks:', data)),
-            map(data => TaskActions.loadTasksSuccess({tasks: data})),
+            map(data => TaskActions.loadTasksSuccess({tasks: data.tasks})),
             catchError(error => of(TaskActions.loadTasksFailure({error: error.message})))
           )
         )
