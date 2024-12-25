@@ -65,7 +65,7 @@ ng build --configuration production
 
 
 ### **Technology Stack**
-- **Flutter**: Frontend mobile application development (this application).
+- **Flutter**: [Flutter App](https://github.com/nufki/task_manager_app) 
 - **Backend**: [Task Manager Backend](https://github.com/nufki/task-manager-backend).
 - **Frontend (Web)**: [Angular Frontend](https://github.com/nufki/task-manager-frontend) (version 18.2).
 
