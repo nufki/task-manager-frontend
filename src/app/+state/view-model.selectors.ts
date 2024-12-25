@@ -1,12 +1,12 @@
 import {createSelector} from "@ngrx/store";
-import {selectAllTasksSorted, selectSortingType, selectTaskLoading} from "./task/task.selectors";
-import {selectUsers} from "./user/user.selectors";
+import {selectAllTasksSorted, selectNextToken, selectSortingType, selectTaskLoading} from "./task/task.selectors";
+import {SortingType, Task} from "./task/task.model";
 
-export interface TasksState {
-  tasks: ReturnType<typeof selectAllTasksSorted>;
-  loading: ReturnType<typeof selectTaskLoading>;
-  sortingType: ReturnType<typeof selectSortingType>;
-  // users: string[];
+export interface TasksViewModel {
+  tasks: Task[];
+  loading: boolean;
+  sortingType: SortingType;
+  allTasksLoaded: boolean;
 }
 
 
@@ -14,12 +14,17 @@ export const selectTasks = createSelector(
   selectAllTasksSorted,
   selectTaskLoading,
   selectSortingType,
-  selectUsers,
-  (tasks, loading, sortingType): TasksState => ({
+  selectNextToken,
+  (tasks, loading, sortingType,nextToken): {
+    tasks: Task[]
+    loading: boolean;
+    sortingType: SortingType;
+    allTasksLoaded: boolean;
+  } => ({
     tasks,
     loading,
-    sortingType
-    // users
+    sortingType,
+    allTasksLoaded: nextToken === null,
   }),
 );
 

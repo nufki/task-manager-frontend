@@ -35,6 +35,11 @@ export const selectSortingType = createSelector(
   (state: State) => state.sortingType
 );
 
+export const selectNextToken = createSelector(
+  selectTasksState,
+  (state: State) => state.nextToken,
+);
+
 export const selectSelectedTask = createSelector(
   selectTaskEntities,
   selectSelectedTaskId,

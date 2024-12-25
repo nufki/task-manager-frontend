@@ -10,6 +10,7 @@ export interface State extends EntityState<Task> {
   loading: boolean;
   selectedTaskId: string | null;
   sortingType: SortingType;
+  nextToken: string | undefined;
 }
 
 // Since the tasks are stored as an array, I make use of ngrx Entity Adapter to reduce boiler-plate code...
@@ -20,6 +21,7 @@ export const initialState: State = taskAdapter.getInitialState({
   loading: false,
   selectedTaskId: null,
   sortingType: SortingType.DUE_DATE,
+  nextToken: undefined,
 });
 
 export const dataReducer = createReducer(
@@ -30,10 +32,11 @@ export const dataReducer = createReducer(
       loading: true,
     };
   }),
-  on(TaskActions.loadTasksSuccess, (state, {tasks}) => {
+  on(TaskActions.loadTasksSuccess, (state, {tasks, nextToken}) => {
     return taskAdapter.upsertMany(tasks, {
       ...state,
       loading: false,
+      nextToken: nextToken
     });
   }),
   on(TaskActions.addTaskSuccess, (state, {task}) =>

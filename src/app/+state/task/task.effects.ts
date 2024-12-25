@@ -1,11 +1,12 @@
 import {inject, Injectable} from '@angular/core';
 import {Actions, createEffect, ofType, OnInitEffects} from '@ngrx/effects';
 import {TaskActions} from './task.actions';
-import {catchError, filter, map, mergeMap, tap} from 'rxjs/operators';
+import {catchError, filter, map, mergeMap, tap, withLatestFrom} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {TaskService} from "../../services/task.service";
 import {ROUTER_NAVIGATION, RouterNavigatedAction} from "@ngrx/router-store";
 import {Store} from "@ngrx/store";
+import {selectNextToken} from "./task.selectors";
 
 @Injectable()
 export class TaskEffects implements OnInitEffects {
@@ -13,18 +14,47 @@ export class TaskEffects implements OnInitEffects {
   private store = inject(Store);
   private itemService = inject(TaskService);
 
-  loadAllTasks$ = createEffect(() =>
+  loadTasks$ = createEffect(() =>
       this.actions$.pipe(
-        ofType(TaskActions.loadTasks),
-        mergeMap(() => this.itemService.fetchAllTasks()
-          .pipe(
+        ofType(TaskActions.loadTasks), // Listen for the loadTasks action
+        mergeMap(() =>
+          this.itemService.fetchAllTasks().pipe(
             tap(data => console.log('Fetched tasks:', data)),
-            map(data => TaskActions.loadTasksSuccess({tasks: data.tasks})),
-            catchError(error => of(TaskActions.loadTasksFailure({error: error.message})))
+            map(data =>
+              TaskActions.loadTasksSuccess({
+                tasks: data.tasks,
+                nextToken: data.nextToken!
+              })
+            ),
+            catchError(error =>
+              of(TaskActions.loadTasksFailure({ error: error.message }))
+            )
           )
         )
       ),
-    {functional: true}
+    { functional: true }
+  );
+
+  loadMoreTasks$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(TaskActions.loadMoreTasks), // Listen for the loadTasks action
+        withLatestFrom(this.store.select(selectNextToken)), // Get the nextToken from the store
+        mergeMap(([action, nextToken]) =>
+          this.itemService.fetchAllTasks(nextToken).pipe(
+            tap(data => console.log('Fetched tasks:', data)),
+            map(data =>
+              TaskActions.loadTasksSuccess({
+                tasks: data.tasks,
+                nextToken: data.nextToken!
+              })
+            ),
+            catchError(error =>
+              of(TaskActions.loadTasksFailure({ error: error.message }))
+            )
+          )
+        )
+      ),
+    { functional: true }
   );
 
   addTask$ = createEffect(() =>

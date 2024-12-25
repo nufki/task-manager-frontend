@@ -1,24 +1,30 @@
-# About
-This is the corresponding angular frontend of the simple task manager application backend:
-https://github.com/nufki/task-manager-backend
+# Simple Task Manager - Angular Frontend 
+This is the corresponding Angular application for the Simple Task Manager, a project that provides functionality for
+managing task and is only meant for demo purposes. The app integrates with a backend API and has a matching Flutter app implementation.
 
-Features:
-- Simple frontend that allows to list, create, update and delete tasks
-- The frontend interacts with the task manager API that is deployed in the backend
-- The API is secured by AWS Cognito that issues an ID Token once the user has signed up and is signed in.
-- The entire sign-up, sign-in, sign-out, etc. is provided by the AWS amplify library
-- Easy gitops with github-actions that will trigger a deployment of the application on your AWS account (S3) 
+## Implemented functionality
+### **Features**
+- Simple app that allows to list, create, update and delete tasks
+- The app interacts with the task manager API that is deployed in the backend (which includes the infrastructure as well in AWS cdk)
+- Next to the task API, I implemented a single User API that allows to list all signed-up users (with pagination and optional username search)
+  which however was not yet implemented fully in this app (only lists the users - no searching)
+- The APIs are secured by AWS Cognito that issues an ID Token once the user has signed up and is signed in.
+- Supported user authentication flows:
+  - Sign-up
+  - Sign-in
+  - Confirm account via code sent via email
+  - Reset password
+  - Confirm reset password via code sent via email
+  
+Demo Link: https://d1b07mtd9j77x2.cloudfront.net/login (not uptime guarantee)
 
-Demo Link: https://d1b07mtd9j77x2.cloudfront.net/login
 
-
-### other stuff
+### Used libraries
 This application uses:
 - bootstrap as the main design library: https://getbootstrap.com/
 - ngrx to manage the application state: https://ngrx.io/
-- 
 
-# configuration
+# Configuration
 Configure the AWS cognito parameters that will be available in you AWS account an region: 
 `amplifyconfiguration.json`
 ```
@@ -30,51 +36,49 @@ Configure the AWS cognito parameters that will be available in you AWS account a
 }
 ```
 
-## install
-`ng build`
+## Installation and Running the Application
 
-## run development server
-`ng serve`
+### Install Dependencies
+Run the following command to install all necessary dependencies:
+```bash
+npm install
+```
+
+### Build the Project
+To build the project, use:
+```bash
+ng build
+```
+
+### Run Development Server
+To start a development server, execute:
+```bash
+ng serve
+```
+Navigate to `http://localhost:4200/` to view the application. The server automatically reloads when changes are made.
+
+### Production Build
+To create an optimized production build:
+```bash
+ng build --configuration production
+```
 
 
-## useful docs:
-- amplify docu: https://docs.amplify.aws/angular/build-a-backend/auth/connect-your-frontend/manage-user-sessions/
+### **Technology Stack**
+- **Flutter**: Frontend mobile application development (this application).
+- **Backend**: [Task Manager Backend](https://github.com/nufki/task-manager-backend).
+- **Frontend (Web)**: [Angular Frontend](https://github.com/nufki/task-manager-frontend) (version 18.2).
 
 
-## Source map analyser
-When I run this application, I noticed that the bundle it generates is a bit large.
-When running source-map-analyzer I noticed that amplify does take 40% of the entire bundle :)
-Since this is rather a demo project, I did not make a big effort to reduce the bundle size.
-````
+## Analyzing Bundle Size
+The application bundle can be large due to dependencies like AWS Amplify. Use the source-map-explorer tool to analyze:
+
+```bash
 ng build --configuration production --source-map=true
 
-source-map-explorer dist/task-manager-frontend/browser/main-ANWBVKHE.js --no-border-checks 
-````
+source-map-explorer dist/task-manager-frontend/browser/main.js --no-border-checks
+```
 
-# Angular specific stuff that ships with the CLI
+**Note**: Amplify contributes to ~40% of the bundle size. This demo project does not include advanced optimizations to reduce bundle size.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.0.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---

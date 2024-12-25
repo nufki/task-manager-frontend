@@ -27,13 +27,16 @@ import {DeviceType} from "../../services/device-type.enum";
 export class TaskListComponent implements OnInit, OnDestroy {
   @Input() tasks: Task[] | undefined;
   @Input() loading: boolean = false;
+  @Input() allTasksLoaded: boolean = false;
   @Input() sortingType: SortingType = SortingType.DUE_DATE;
   @Output() addTask = new EventEmitter<Task>();
+  @Output() deleteTask = new EventEmitter<Task>();
   @Output() sortTasks = new EventEmitter<SortingType>();
+  @Output() loadMoreTasks = new EventEmitter<void>();
   deviceType: DeviceType = DeviceType.DESKTOP;
   deviceSubscription: Subscription | undefined;
   today = new Date();
-
+  protected readonly DeviceType = DeviceType;
   protected readonly SortingType = SortingType;
 
   constructor(private deviceService: DeviceService) {}
@@ -52,5 +55,12 @@ export class TaskListComponent implements OnInit, OnDestroy {
     }
   }
 
-  protected readonly DeviceType = DeviceType;
+  private isScrollBottom(): boolean {
+    const {scrollTop, scrollHeight, clientHeight} = document.documentElement;
+    return scrollTop + clientHeight >= scrollHeight - 100;
+  }
+
+  trackByTaskId(index: number, task: Task): string | undefined {
+    return task.id;
+  }
 }

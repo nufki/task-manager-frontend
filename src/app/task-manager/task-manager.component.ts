@@ -8,7 +8,7 @@ import {AsyncPipe} from "@angular/common";
 import {LetDirective} from "@ngrx/component";
 import {AddTaskComponent} from "../ui/add-task/add-task.component";
 import * as ViewModelSelectors from "../+state/view-model.selectors";
-import {TasksState} from "../+state/view-model.selectors";
+import {TasksViewModel} from "../+state/view-model.selectors";
 import {UserActions} from "../+state/user/user.actions";
 import {selectUsers} from "../+state/user/user.selectors";
 import {AppHeaderComponent} from "../ui/app-header/app-header.component";
@@ -28,7 +28,7 @@ import {getCurrentUser, GetCurrentUserOutput, signOut} from 'aws-amplify/auth';
   styleUrl: './task-manager.component.scss'
 })
 export class TaskManagerComponent implements OnInit {
-  protected tasks$: Observable<TasksState>;
+  protected tasks$: Observable<TasksViewModel>;
   protected userList$: Observable<string[]>;
   protected user?: GetCurrentUserOutput;
 
@@ -43,6 +43,11 @@ export class TaskManagerComponent implements OnInit {
     this.currentAuthenticatedUser();
   }
 
+  public onLoadMoreTasks(): void {
+    console.log('onLoadMoreTasks')
+    this.store.dispatch(TaskActions.loadMoreTasks());
+  }
+
   public onLoadUsers($event: void) {
     console.log('onLoadUsers called')
     this.store.dispatch(UserActions.userLoadUsers());
@@ -50,6 +55,11 @@ export class TaskManagerComponent implements OnInit {
 
   public onAddNewTask(task: Task) {
     this.store.dispatch(TaskActions.addTask({task}));
+  }
+
+  public onDeleteTask(task: Task) {
+    if (task?.id)
+    this.store.dispatch(TaskActions.deleteTask({id: task.id}));
   }
 
   public onSortingTask(sortingType: SortingType) {
