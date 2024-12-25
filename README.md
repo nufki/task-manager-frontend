@@ -36,6 +36,18 @@ Configure the AWS cognito parameters that will be available in you AWS account a
 }
 ```
 
+## Impressions (maybe outdated)
+<div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;">
+  <img src="images/task-overview-mobile.png" alt="Task Overview (mobile)" width="200" />
+  <img src="images/add-task.png" alt="Add a new Task" width="200" />
+  <img src="images/edit-task.png" alt="Edit Task" width="200" />
+  <img src="images/assigned-user.png" alt="Assign a user" width="200" />
+  <img src="images/task-overview-desktop.png" alt="Task Overview (Desktop)" width="600" />
+  <img src="images/sign-in.png" alt="Sign-in" width="600" />
+  <img src="images/sign-up.png" alt="Sign-up" width="600" />
+</div>
+
+
 ## Installation and Running the Application
 
 ### Install Dependencies
