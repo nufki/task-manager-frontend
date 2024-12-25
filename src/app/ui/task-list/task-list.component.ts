@@ -30,6 +30,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
   @Input() allTasksLoaded: boolean = false;
   @Input() sortingType: SortingType = SortingType.DUE_DATE;
   @Output() addTask = new EventEmitter<Task>();
+  @Output() deleteTask = new EventEmitter<Task>();
   @Output() sortTasks = new EventEmitter<SortingType>();
   @Output() loadMoreTasks = new EventEmitter<void>();
   deviceType: DeviceType = DeviceType.DESKTOP;

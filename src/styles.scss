@@ -1,3 +1,13 @@
+/* Define global customizations */
+$primary: #6f42c1; // Light purple for primary color
+$secondary: #d6bbfb; // Purple for secondary color
+$body-bg: #f6f3fb; // Light gray background for the entire app
+$btn-border-radius: 0.5rem; // Make buttons slightly rounder
+$font-family-base: 'Roboto', sans-serif; // Set global font family
+$danger: #dc3545; // Leave Bootstrap's default red for danger buttons
+$success: #28a745; // Green for success
+$info: #17a2b8; // Cyan for info buttons
+
 /* You can add global styles to this file, and also import other style files */
 //@import "bootstrap/scss/bootstrap-grid";
 @import "bootstrap/scss/bootstrap";
@@ -37,4 +47,8 @@ body {
   background-color: #28a745; /* Green background */
   color: white; /* White text */
   font-size: 16px; /* Slightly larger text */
+}
+
+.text-light-purple {
+  color: #6f42c1 !important;
 }

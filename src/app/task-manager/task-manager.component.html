@@ -13,6 +13,7 @@
     [loading]="vm.tasks.loading"
     [allTasksLoaded]="vm.tasks.allTasksLoaded"
     [sortingType]="vm.tasks.sortingType"
+    (deleteTask)="onDeleteTask($event)"
     (loadMoreTasks)="onLoadMoreTasks()"
     (sortTasks)="onSortingTask($event)">
   </app-task-list>

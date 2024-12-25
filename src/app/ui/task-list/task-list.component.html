@@ -6,7 +6,7 @@
     </div>
   </div>
 
-  <div *ngIf="tasks && tasks.length > 0" class="m-2">
+  <div *ngIf="tasks && tasks.length > 0" class="my-2">
     <!-- Sorting Dropdown -->
     <div class="d-flex justify-content-between align-items-center mb-3">
       <div class="col-9"></div>
@@ -28,41 +28,80 @@
     <p class="mb-0 ms-3"><strong>{{ tasks.length }} tasks</strong></p>
 
     <!-- Mobile View -->
-    <div *ngIf="deviceType === DeviceType.MOBILE" class="row g-3">
+    <div *ngIf="deviceType === DeviceType.MOBILE" class="row g-0 mx-0">
       <div
         *ngFor="let task of tasks; trackBy: trackByTaskId"
-        class="col-12"
+        class="col-12 mb-2"
       >
-        <div
-          class="card shadow-sm ms-4 me-4"
-          [ngClass]="{
-            'bg-warning': !task.assignedUser,
-            'bg-danger-subtle border-danger': task.dueDate && task.dueDate < today
-          }"
-        >
+        <div class="card shadow-sm border-top border-bottom border-start-0 border-end-0 w-100 rounded-0">
           <div class="card-body">
-            <h5 class="card-title">{{ task.name }}</h5>
-            <p class="card-text">
+            <!-- Task Name and Menu in One Row -->
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0">{{ task.name }}</h5>
+
+              <div class="dropdown">
+                <button
+                  class="btn btn-outline-primary btn-sm"
+                  type="button"
+                  id="threeDotDropdown"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  ...
+                </button>
+                <ul
+                  class="dropdown-menu dropdown-menu-end"
+                  aria-labelledby="threeDotDropdown"
+                >
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      [routerLink]="['/tasks', task.id]"
+                    >
+                      Edit
+                    </a>
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider"/>
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item text-danger"
+                      (click)="deleteTask.emit(task)"
+                    >
+                      Delete
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Task Details -->
+            <p class="card-text mt-3 mb-0">
               <strong>Due Date:</strong>
-              <span [ngClass]="{ 'text-danger fw-bold': task.dueDate && task.dueDate < today }">
+              <span
+                [ngClass]="{ 'text-danger fw-bold': task.dueDate && task.dueDate < today }"
+              >
                 {{ task.dueDate | date }}
               </span>
-              <br />
-              <strong>Priority:</strong> {{ task.priority }} <br />
-              <strong>Status:</strong> {{ task.status }} <br />
+              <br/>
+              <strong>Priority:</strong> {{ task.priority }} <br/>
+              <strong>Status:</strong> {{ task.status }} <br/>
               <strong>Assigned:</strong>
-              <span [ngClass]="{ 'text-danger fw-bold': !task.assignedUser }">
+              <span
+                [ngClass]="{ 'text-danger fw-bold': !task.assignedUser }"
+              >
                 {{ task.assignedUser || 'Unassigned' }}
               </span>
             </p>
-            <a [routerLink]="['./', task.id]" class="btn btn-secondary btn-sm">View Details</a>
           </div>
         </div>
+
       </div>
     </div>
 
     <!-- Desktop View -->
-    <div *ngIf="deviceType !== DeviceType.MOBILE">
+    <div *ngIf="deviceType !== DeviceType.MOBILE" class="px-2">
       <table class="table table-hover">
         <thead>
         <tr>
@@ -78,10 +117,6 @@
           *ngFor="let task of tasks; trackBy: trackByTaskId"
           [routerLink]="['./', task.id]"
           class="cursor-pointer"
-          [ngClass]="{
-              'table-warning': !task.assignedUser,
-              'table-danger': task.dueDate && task.dueDate < today
-            }"
         >
           <td>{{ task.name }}</td>
           <td>

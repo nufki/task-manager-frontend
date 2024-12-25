@@ -8,6 +8,7 @@ export const TaskActions = createActionGroup({
   events: {
     'On Init': emptyProps,
     'Load Tasks': emptyProps(),
+    'Load More Tasks': emptyProps(),
     'Load Tasks Success': props<{ tasks: Task[], nextToken?: string }>(),
     'Load Tasks Failure': props<{ error: string }>(),
     'Add Task': props<{ task: Task }>(),

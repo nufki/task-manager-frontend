@@ -45,7 +45,7 @@ export class TaskManagerComponent implements OnInit {
 
   public onLoadMoreTasks(): void {
     console.log('onLoadMoreTasks')
-    this.store.dispatch(TaskActions.loadTasks());
+    this.store.dispatch(TaskActions.loadMoreTasks());
   }
 
   public onLoadUsers($event: void) {
@@ -55,6 +55,11 @@ export class TaskManagerComponent implements OnInit {
 
   public onAddNewTask(task: Task) {
     this.store.dispatch(TaskActions.addTask({task}));
+  }
+
+  public onDeleteTask(task: Task) {
+    if (task?.id)
+    this.store.dispatch(TaskActions.deleteTask({id: task.id}));
   }
 
   public onSortingTask(sortingType: SortingType) {

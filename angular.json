@@ -29,7 +29,6 @@
             "styles": [
               "src/styles.scss",
               "node_modules/@aws-amplify/ui-angular/theme.css",
-              "node_modules/bootstrap/scss/bootstrap.scss",
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
@@ -98,7 +97,6 @@
             "styles": [
               "src/styles.scss",
               "node_modules/@aws-amplify/ui-angular/theme.css",
-              "node_modules/bootstrap/scss/bootstrap.scss",
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
