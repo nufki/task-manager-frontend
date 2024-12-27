@@ -15,8 +15,13 @@ managing task and is only meant for demo purposes. The app integrates with a bac
   - Confirm account via code sent via email
   - Reset password
   - Confirm reset password via code sent via email
-  
-Demo Link: https://d1b07mtd9j77x2.cloudfront.net/login (not uptime guarantee)
+
+Demo Link: https://d1b07mtd9j77x2.cloudfront.net (uptime not ensured)
+
+### **Technology Stack**
+- **Backend**: [Task Manager Backend](https://github.com/nufki/task-manager-backend).
+- **Angular web frontend**: (This repo) [Angular Frontend](https://github.com/nufki/task-manager-frontend) (version 18.2).
+- **Flutter app**: [Flutter App](https://github.com/nufki/task_manager_app)
 
 
 ### Used libraries
@@ -74,13 +79,6 @@ To create an optimized production build:
 ```bash
 ng build --configuration production
 ```
-
-
-### **Technology Stack**
-- **Flutter**: [Flutter App](https://github.com/nufki/task_manager_app) 
-- **Backend**: [Task Manager Backend](https://github.com/nufki/task-manager-backend).
-- **Frontend (Web)**: [Angular Frontend](https://github.com/nufki/task-manager-frontend) (version 18.2).
-
 
 ## Analyzing Bundle Size
 The application bundle can be large due to dependencies like AWS Amplify. Use the source-map-explorer tool to analyze:
